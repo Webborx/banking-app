@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Banking Dashboard</title>
+  {% load static %}
+    
+    
+  <!-- <link rel="stylesheet" href="/static/dashboard.css"> -->
+
+  <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="header-left">
+      <img  src="{% static 'images/marieblue22.png' %}"/>
+      <!-- <img src="image/marine.jpeg"> -->
+      <h1>MARINE <span style="font-size: 20px;">FEDERAL</span></h1>
+
+      <h4>Welcome, {{ user.first_name }}</h4>
+      <div id="loadingSpinner" class="spinner-overlay">
+        <div class="spinner"></div>
+      </div>
+      
+    </div>
+    <!-- <div><img  src="{% static 'images/marieblue22.png' %}"/></div> -->
+
+    <div class="header-right">
+      <button id="themeToggle" title="Toggle Theme">🌓</button>
+
+      <div class="notification-wrapper">
+        <span class="notification-icon" onclick="toggleNotifications()">🔔
+          <span id="notif-badge" class="notif-badge"></span>
+        </span>
+        <div class="notification-panel" id="notificationPanel">
+          <h4>Notifications</h4>
+          <ul id="notif-list">
+            {% for note in notifications %}
+            <li>{{ note.message }} <small>({{ note.timestamp|timesince }} ago)</small></li>
+            {% empty %}
+            <li>No notifications</li>
+            {% endfor %}
+          </ul>
+        </div>
+      </div>
+
+      <div class="profile-wrapper">
+        <img src="{{ user.profile.picture.url }}" alt="Menu" class="profile-pic" onclick="toggleProfileMenu()"> 
+        <div class="profile-menu" id="profileMenu">
+           <a href="{% url 'profile' %}">Profile</a> 
+           <a href="{% url 'settings' %}">Settings</a>
+          <a href="{% url 'logout' %}">Logout</a> 
+          
+        </div>
+      </div>
+    </div>
+  </header> 
+
+  <!-- Account Overview Section Here -->
+
+  <!-- Transaction History Section Here -->
+  <section class="account-overview">
+    {% if profile.is_frozen %}
+    <p class="account-warning">⚠️ Your account is currently frozen. Please contact support.</p>
+  {% endif %}
+    <h2>Account Overview</h2>
+    <div class="account-details">
+      <div class="account-box">
+        <p class="label">Account Balance</p>
+        <h3 class="value">${{ profile.account_balance}}</h3>
+      </div>
+      <div class="account-box">
+        <p class="label"><strong>Account Number</strong></p>
+        <h3 class="value">**** {{ profile.account_number|slice:"-4:" }}</h3>
+      </div>
+      <div class="account-box">
+        <p class="label"><strong>Routing Number</strong></p>
+        <h3 class="value routing">**** {{ profile.routing_number|slice:"-4:" }}</h3>
+
+      </div>
+      
+      <div class="account-box">
+        <p class="label">Account Type</p>
+        <h3 class="value">Checking</h3>
+      </div>
+      <div class="quick-actions">
+        {% if profile.is_frozen %}
+  <button disabled class="transfer"><a style="text-decoration: none;" href="{% url 'transfer' %}" ><span style="text-decoration: none;" class="transfer">Transfer Funds</span></a></button>
+  <button disabled>Pay Bills</button>
+{% else %}
+  <button class="transfer"><a style="text-decoration: none;" href="{% url 'transfer' %}" ><span class="transfer">Pay Bills</span></a></button>
+
+ <button> <a style="text-decoration: none;" href="{% url 'mobiledeposit' %}" ><span class="transfer">Mobile Deposit</span></a> </button>
+ <button> <a style="text-decoration: none;"  href="{% url 'paybill' %}" ><span class="transfer">Make Transfer</span></a> </button>
+ <button> <a style="text-decoration: none;" href="" ><span class="transfer">Rewards</span></a> </button>
+ <!-- <button> <a href="" ><span class="transfer">Home</span></a> </button> -->
+ 
+{% endif %}
+
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="cards-section">
+    <h2>My Cards</h2>
+    <div class="cards-list">
+      {% for card in cards %}
+      <div class="card-item {{ card.status|lower }}">
+        <div class="card-details">
+          <p class="card-type">{{ card.card_type }} </p>
+          <p class="card-number">**** **** **** {{ card.number|slice:"-4:" }}</p>
+          <p class="card-expiry">Expires {{ card.expiry_date }}</p>
+          <p class="card-status">Status: {{ card.status }}</p>
+        </div>
+        <!-- <div class="card-actions">
+          <form method="post">
+            {% csrf_token %}
+            {% if card.status == "active" %}
+              <button type="submit" formaction="{% url 'lock_card' card.id %}">Lock</button>
+            {% else %}
+              <button type="submit" formaction="{% url 'unlock_card' card.id %}">Unlock</button>
+            {% endif %}
+          </form>
+        </div> -->
+        <div class="'card-actions">
+
+        <form method="post" onsubmit="return showSpinnerAndConfirm(this);">
+          {% csrf_token %}
+          {% if card.status == "active" %}
+            <button type="submit" formaction="{% url 'lock_card' card.id %}" data-action="lock">Lock</button>
+          {% else %}
+            <button type="submit" formaction="{% url 'unlock_card' card.id %}" data-action="unlock">Unlock</button>
+          {% endif %}
+        </form>
+
+        </div>
+        
+        
+        
+      </div>
+      {% empty %}
+      <p>You have no cards linked to your account.</p>
+      {% endfor %}
+    </div>
+  </section>
+  <section class="transaction-history">
+    <a href="{% url 'transactions' %}">Transaction History</a>
+    <h2>Recent Transactions</h2>
+    <table class="transaction-table">
+      <thead>
+        <tr>
+          <!-- <th>Date</th> -->
+          <th>Description</th>
+          
+          <th>Recipient</th>
+          <th>Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for transaction in transactions %}
+        <tr>
+          <!-- <td></td> -->
+<td>{{ transaction.date }}<br/>
+  {{ transaction.description }}
+  {% if transaction.status == "rejected" and transaction.rejection_reason %}
+    <br><span style="color:red;">Reason: {{ transaction.rejection_reason }}</span>
+  {% endif %}
+</td>
+<!-- <td>${{ transaction.amount }} </td> -->
+{% if transaction.recipient_bank_name %}
+          <td> {{ transaction.recipient_bank_name }} - Acct: {{ transaction.recipient_account_number }}</td>
+          {% else %}
+          <td>-</td>
+          {% endif %}
+<td class="{{ transaction.status|lower }}"> ${{ transaction.amount }}<br/> {{ transaction.status|title }}</td>
+          
+        </tr>
+        {% empty %}
+        <tr>
+          <td colspan="5">No transactions found.</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </section>
+  
+  
+
+  <script>
+
+function showSpinnerAndConfirm(form) {
+    const action = form.querySelector("button[type='submit']").dataset.action;
+    const confirmed = confirm(`Are you sure you want to ${action} this card?`);
+    if (confirmed) {
+      document.getElementById('loadingSpinner').style.display = 'flex';
+      return true;
+    }
+    return false;}
+
+    function confirmAction(form) {
+    const action = form.querySelector("button[type='submit']").dataset.action;
+    return confirm(`Are you sure you want to ${action} this card?`);
+  }
+
+  // Optional toast feedback after redirect
+  const urlParams = new URLSearchParams(window.location.search);
+  const toast = urlParams.get('toast');
+  if (toast) {
+    const toastDiv = document.createElement('div');
+    toastDiv.textContent = toast;
+    toastDiv.style.position = 'fixed';
+    toastDiv.style.top = '20px';
+    toastDiv.style.right = '20px';
+    toastDiv.style.backgroundColor = '#4CAF50';
+    toastDiv.style.color = 'white';
+    toastDiv.style.padding = '10px 15px';
+    toastDiv.style.borderRadius = '5px';
+    toastDiv.style.boxShadow = '0 0 10px rgba(0,0,0,0.3)';
+    toastDiv.style.zIndex = 9999;
+    document.body.appendChild(toastDiv);
+    setTimeout(() => toastDiv.remove(), 3000);
+  }
+
+    function toggleNotifications() {
+      document.getElementById('notificationPanel').classList.toggle('show');
+      document.getElementById('profileMenu').classList.remove('show');
+    }
+
+    function toggleProfileMenu() {
+      document.getElementById('profileMenu').classList.toggle('show');
+      document.getElementById('notificationPanel').classList.remove('show');
+    }
+
+    document.addEventListener('click', function (e) {
+      if (!e.target.closest('.notification-wrapper') && !e.target.closest('.profile-wrapper')) {
+        document.getElementById('notificationPanel').classList.remove('show');
+        document.getElementById('profileMenu').classList.remove('show');
+      }
+    });
+
+    document.getElementById('themeToggle').addEventListener('click', function () {
+      document.body.classList.toggle('dark');
+      localStorage.setItem('theme', document.body.classList.contains('dark') ? 'dark' : 'light');
+    });
+
+    window.addEventListener('load', () => {
+      if (localStorage.getItem('theme') === 'dark') {
+        document.body.classList.add('dark');
+      }
+    });
+
+    
+
+
+    (function () {
+  const socket = new WebSocket(
+    (window.location.protocol === "https:" ? "wss://" : "ws://") +
+    window.location.host + "/ws/notifications/"
+  );
+
+  socket.onmessage = function (e) {
+    const data = JSON.parse(e.data);
+    showToast(data.message);
+    addToPanel(data.message, data.timestamp);
+  };
+
+  function showToast(msg) {
+    const toast = document.createElement("div");
+    toast.className = "toast";
+    toast.textContent = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 5000);
+  }
+
+  function addToPanel(message, timestamp) {
+    const list = document.getElementById("notif-list");
+    const li = document.createElement("li");
+    const time = new Date(timestamp);
+    const formatted = `${time.getHours()}:${String(time.getMinutes()).padStart(2, '0')}`;
+    li.innerHTML = `${message} <small>(${formatted})</small>`;
+    list.prepend(li);
+
+    // Show badge
+    const badge = document.getElementById("notif-badge");
+    if (badge) {
+      const current = parseInt(badge.textContent || "0");
+      badge.textContent = current + 1;
+      badge.classList.add("active");
+    }
+  }
+
+  // Clear badge when opening the panel
+  window.toggleNotifications = function () {
+    const panel = document.getElementById("notificationPanel");
+    panel.style.display = panel.style.display === "block" ? "none" : "block";
+
+    const badge = document.getElementById("notif-badge");
+    if (badge) {
+      badge.textContent = "";
+      badge.classList.remove("active");
+
+      // Optional: Tell backend they're seen
+       
+    }
+  }
+})();
+  </script>
+</body>
+</html>

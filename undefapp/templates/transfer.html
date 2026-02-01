@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Transfer Money</title>
+    <style>
+        body { background: #004d99; color: rgb(9, 9, 9); font-family: sans-serif; padding: 30px; }
+        form { max-width: 400px; margin: 0 auto; background:white; padding: 20px; border-radius: 10px; }
+        select, input, textarea, button {
+            width: 100%; padding: 10px; margin: 10px 0; border: none;
+            background: #004d99; color: white; border-radius: 5px;
+        }
+        button { background: #007bff; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <h2 style="color: aliceblue;">Transfer Funds</h2>
+    <h2><a style="text-decoration: none; color: aliceblue;"  href="{% url 'dashboard' %}">Home</a></h2>
+
+    {% if messages %}
+        {% for msg in messages %}
+            <p style="color: lightgreen;">{{ msg }}</p>
+        {% endfor %}
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+
+        <label>Send to:</label>
+        <select name="recipient" required>
+            <option value="">-- Select Recipient --</option>
+            {% for user in users %}
+                <option value="{{ user.id }}">{{ user.username }}</option>
+            {% endfor %}
+        </select>
+
+        <label>Amount:</label>
+        <input type="number" name="amount" step="0.01" required>
+
+        <label>Note:</label>
+        <textarea name="description" required></textarea>
+
+        <button type="submit">Send</button>
+    </form>
+
+</body>
+</html>

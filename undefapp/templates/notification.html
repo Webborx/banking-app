@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Notifications</title>
+    <style>
+        body { background: #111; color: white; font-family: sans-serif; padding: 30px; }
+        .notif { background: #222; margin-bottom: 15px; padding: 15px; border-left: 4px solid #444; border-radius: 8px; }
+        .unread { border-left-color: #ff9800; }
+        .date { font-size: 12px; color: #999; margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<h2>Notifications</h2>
+
+<div class="notifications-section">
+    <h3>Recent Notifications</h3>
+    {% if notifications %}
+        {% for notif in notifications %}
+            <!-- <div class="notif {% if not notif.is_read %}unread{% endif %}"> -->
+            <div class="notif ">
+                <h3>{{ notif.message }}</h3>
+                <small class="date">{{ notif.created_at|date:"M d, Y - H:i" }}</small>
+            </div>
+        {% endfor %}
+        <a href="{% url 'user_notifications' %}" class="view-all">View all</a>
+    {% else %}
+        <p>No notifications</p>
+    {% endif %}
+</div>
+
+<!-- {% if notifications %}
+    {% for notif in notifications %}
+        <div class="notif {% if not notif.is_read %}unread{% endif %}">
+            <p>{{ notif.message }}</p>
+            <div class="date">{{ notif.created_at|date:"M d, Y - H:i" }}</div>
+        </div>
+    {% endfor %}
+
+{% else %}
+    <p>No notifications yet.</p>
+{% endif %} -->
+
+</body>
+</html>

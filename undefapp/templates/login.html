@@ -1,0 +1,75 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'forminput.css' %}">
+    <link rel="stylesheet" href="{% static 'dashboard.css' %}">
+</head>
+<body>
+
+    <header class="header">
+        <div class="header-left">
+          <img  src="{% static 'images/marieblue22.png' %}"/>
+          
+          <h1>MARINE <span style="font-size: 20px;">FEDERAL</span></h1>
+
+          
+        </div>
+
+        <div class="header-right">
+          
+    
+        </div>
+      </header> 
+
+      <!-- <div>
+        <div class="header-left">
+            <img  src="{% static 'images/marieblue22.png' %}"/>
+            
+            <h1>MARINE <span>FEDERAL</span></h1>
+  
+            
+          </div>
+  
+          <div class="header-right">
+            
+       dgfhjckhv
+          </div> -->
+
+      </div>
+
+      <div class="formshift">
+<form method="post">
+    {% csrf_token %}
+    {% if messages %}
+    {% for message in messages %}
+        <p class="error">{{ message }}</p>
+    {% endfor %}
+{% endif %}
+
+
+    <p>
+        <label for="username">Username</label>
+        <input type="text" name="username" required>
+    </p>
+
+    <p>
+        <label for="password">Password</label>
+        <input type="password" name="password" required>
+    </p>
+
+    <button type="submit">Login</button>
+
+    <p>Don't have an account?</p>
+
+    <button type=""> Sign up</button>
+</form>
+
+</div>
+
+</body>
+</html>
+

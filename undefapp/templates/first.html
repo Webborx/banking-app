@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet"  href=" {% static 'first.css'%}">
+    
+</head>
+<body>
+   
+    <div class="firstD">
+    <div>
+    <h1>
+    
+         Thanks for your application, 
+         {% if Fund %}
+         <p> {{ Fund.Firstname }} {{ Fund.Lastname }}</p>
+     {% else %}
+         <p>No data found.</p>
+     {% endif %}
+        
+    
+        <br/> </h1>
+       
+        <img class="verifiedimg" src="{% static 'images/verified.png' %}"/> </div>
+            
+
+
+        <p>Application processing</p>
+
+        Ref :<span> #{{randomnumber}}</span>
+        your application is being review, we will send you a message to your mail for further review
+    </h3>
+
+
+   
+    <a href="https://www.un.org/democracyfund/ "> go back to home page</a>
+    
+
+    {% for msg in messages %}
+        <p>{{msg}}</p>
+    {% endfor %}
+
+    
+
+
+ </div>
+</body>
+</html>

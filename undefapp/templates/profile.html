@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Profile</title>
+    <style>
+        body { background: #111; color: white; font-family: Arial, sans-serif; padding: 40px; }
+        .profile-box {
+            max-width: 600px; margin: auto; background: #1c1c1c;
+            padding: 30px; border-radius: 12px; box-shadow: 0 0 10px rgba(255,255,255,0.05);
+        }
+        .profile-box h2 { margin-top: 0; }
+        .profile-row { margin: 15px 0; }
+        .label { color: #aaa; font-size: 14px; }
+        .value { font-size: 18px; font-weight: bold; }
+        img { max-width: 150px; border-radius: 8px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+
+<div class="profile-box">
+    <h2>Welcome, {{ request.user.first_name }} {{ request.user.last_name }}</h2>
+
+    {% if profile.profile_picture %}
+        <img src="{{ profile.profile_picture.url }}" alt="Profile Picture">
+    {% endif %}
+
+    <div class="profile-row">
+        <div class="label">Username</div>
+        <div class="value">{{ request.user.username }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Email</div>
+        <div class="value">{{ request.user.email }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Phone Number</div>
+        <div class="value">{{ profile.Phone_number }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Account Number</div>
+        <div class="value">{{ profile.account_number }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Routing Number</div>
+        <div class="value">{{ profile.routing_number }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Annual Income</div>
+        <div class="value">{{ profile.annual_income }}</div>
+    </div>
+
+    <div class="profile-row">
+        <div class="label">Job Role</div>
+        <div class="value">{{ profile.Job_role }}</div>
+    </div>
+
+</div>
+
+</body>
+</html>

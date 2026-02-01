@@ -1,0 +1,438 @@
+/* === Theme Variables === */
+:root {
+    --header-bg: #004d99;
+    --header-text: white;
+    --body-bg: #f5f5f5;
+  }
+  
+  body.dark {
+    --header-bg: #1a1a1a;
+    --header-text: white;
+    --body-bg: #111;
+    background-color: var(--body-bg);
+    color: white;
+  }
+  
+  body.dark .notification-panel,
+  body.dark .profile-menu {
+    background-color: #222;
+    color: white;
+  }
+  
+  /* === General === */
+  body {
+    background-color: var(--body-bg);
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* === Header === */
+  .header {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    padding: 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-right {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+  
+  #themeToggle {
+    font-size: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: inherit;
+  }
+  
+  /* === Notifications === */
+  .notification-wrapper {
+    position: relative;
+  }
+  
+  .notification-icon {
+    font-size: 20px;
+    cursor: pointer;
+  }
+  
+  .notification-panel {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 30px;
+    background: white;
+    color: black;
+    width: 250px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    padding: 10px;
+    border-radius: 8px;
+    z-index: 10;
+  }
+  
+  .notification-panel ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .notification-panel li {
+    padding: 8px 0;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .notification-panel.show {
+    display: block;
+  }
+  
+  /* === Profile === */
+  .profile-wrapper {
+    position: relative;
+  }
+  
+  .profile-pic {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    object-fit: cover;
+    cursor: pointer;
+    border: 2px solid white;
+  }
+  
+  .profile-menu {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 40px;
+    background: white;
+    color: black;
+    width: 150px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    border-radius: 6px;
+    overflow: hidden;
+    z-index: 10;
+  }
+  
+  .profile-menu a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+
+  
+  
+  .profile-menu a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .profile-menu.show {
+    display: block;
+  }
+
+  /* a{
+    text-decoration: none;
+    
+  } */
+  
+  /* === Cards Section === */
+  .cards-section {
+    margin: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .cards-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .card-item {
+    flex: 1 1 250px;
+    padding: 15px;
+    border-radius: 10px;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+  }
+  
+  .card-item.locked {
+    background: linear-gradient(to right, #555, #777);
+  }
+  
+  .card-details {
+    margin-bottom: 15px;
+  }
+  
+  .card-type {
+    font-size: 1.2em;
+    font-weight: bold;
+  }
+  
+  .card-number {
+    font-size: 1.1em;
+    margin: 5px 0;
+  }
+  
+  .card-expiry,
+  .card-status {
+    font-size: 0.9em;
+    opacity: 0.9;
+  }
+  
+  .card-actions button {
+    background-color: white;
+    color: #1e3c72;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+
+ /* === Account Overview === */
+.account-overview {
+    margin: 30px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .account-overview h2 {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+  }
+  
+  .account-details {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: flex-start;
+  }
+  
+  .account-box {
+    flex: 1 1 200px;
+    background: #f0f4f7;
+    padding: 15px;
+    border-radius: 8px;
+  }
+  
+  .account-box .label {
+    font-size: 0.9em;
+    color: #777;
+  }
+  
+  .account-box .value {
+    font-size: 1.3em;
+    font-weight: bold;
+    margin-top: 5px;
+  }
+  
+  .quick-actions {
+    flex: 1 1 100%;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+  }
+  
+  .quick-actions button {
+    flex: 1;
+    padding: 10px;
+    background-color: #004d99;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+   /* === Transaction History === */
+.transaction-history {
+    margin: 30px;
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .transaction-history h2 {
+    margin-bottom: 15px;
+    font-size: 1.4em;
+  }
+  .pending { color: rgba(0, 0, 0, 0.606); }
+.processed { color: limegreen; }
+.rejected { color: red; }
+
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.95em;
+  }
+  
+  .transaction-table th, 
+  .transaction-table td {
+    text-align: left;
+    padding: 12px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .transaction-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .transaction-table tr:hover {
+    background-color: #f9f9f9;
+  }
+  
+  .transaction-table td.success {
+    color: green;
+  }
+  
+  .transaction-table td.failed {
+    color: red;
+  }
+  
+  .transaction-table td.pending {
+    color: rgba(0, 0, 0, 0.682);
+  }
+
+  .card-actions form button {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+  }
+  
+  .card-actions form button[type="submit"] {
+    background-color: #004d99;
+    color: white;
+  }
+  
+  .card-actions form button[type="submit"]:hover {
+    opacity: 0.9;
+  }
+
+  body {
+    animation: fadeIn 0.6s ease-in-out;
+  }
+  
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .card-item {
+    /* existing styles... */
+    animation: slideUp 0.5s ease-in-out;
+  }
+  
+  @keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .card-actions form button {
+    transition: transform 0.2s ease, background-color 0.3s ease;
+  }
+  
+  .card-actions form button:hover {
+    transform: scale(1.05);
+    background-color: #003366;
+    color: #fff;
+  }
+  
+  .spinner-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.3);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .spinner {
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #004d99;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+
+  .account-warning {
+    background-color: #ffdddd;
+    color: #a00;
+    padding: 10px;
+    margin-bottom: 15px;
+    border-left: 5px solid #a00;
+    border-radius: 6px;
+    font-weight: bold;
+  }
+
+
+  .account-box .value.routing {
+    font-size: 1.1em;
+    opacity: 0.85;
+  }
+
+  .transfer{
+    text-decoration: none;
+    color: white;
+  }
+  
+  /* Optional: Toast for new messages */
+.toast {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background: #222;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: fadeInUp 0.3s ease, fadeOut 0.3s ease 4.5s forwards;
+  z-index: 9999;
+}
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes fadeOut {
+  to { opacity: 0; transform: translateY(20px); }
+}
+
+/* Optional: red unread bubble */
+.notif-badge {
+  background: red;
+  color: white;
+  font-size: 12px;
+  padding: 2px 6px;
+  border-radius: 50%;
+  vertical-align: top;
+  margin-left: 4px;
+  display: none;
+}
+.notif-badge.active {
+  display: inline-block;
+}

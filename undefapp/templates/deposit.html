@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Deposit Funds</title>
+    <style>
+        body { background: #111; color: white; font-family: sans-serif; padding: 30px; }
+        form { max-width: 400px; margin: 0 auto; background: #222; padding: 20px; border-radius: 10px; }
+        input, textarea, button {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            border: none;
+            background: #333;
+            color: white;
+        }
+        button { background: #28a745; cursor: pointer; }
+        .success { color: lightgreen; }
+    </style>
+</head>
+<body>
+
+    <h2>Deposit Funds</h2>
+
+    {% if success %}
+        <p class="success">Your deposit has been submitted and is awaiting approval.</p>
+    {% endif %}
+
+    <form method="POST">
+        {% csrf_token %}
+        <label>Amount:</label>
+        <input type="number" name="amount" step="0.01" required />
+
+        <label>Description:</label>
+        <textarea name="description" required></textarea>
+
+        <button type="submit">Submit Deposit</button>
+    </form>
+
+</body>
+</html>

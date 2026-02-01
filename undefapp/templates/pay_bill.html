@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bank Dashboard{% endblock %}</title>
+    <style>
+        body { margin: 0; background: #004d99; color: white; font-family: Arial, sans-serif; }
+        .navbar {
+            background: #004d99;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none; font-size: 20px;">
+            💳 MyBank
+        </a>
+        {% for error in form.non_field_errors %}
+  <p style="color:red;">{{ error }}</p>
+{% endfor %}
+
+    </div>
+    <div class="nav-links">
+
+        <a  href="{% url 'dashboard' %}">Home</a>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+    <h2>pay a Bill (External Transfer)</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{form.as_p}}
+        <button type="submit"> Send Payment</button>
+    </form>
+</div>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{% block title %}Bank Dashboard{% endblock %}</title>
+    <style>
+        body { margin: 0; background: #111; color: white; font-family: Arial, sans-serif; }
+        .navbar {
+            background: #1c1c1c;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #333;
+        }
+        .nav-links a {
+            color: #ccc;
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: bold;
+        }
+        .nav-links a:hover {
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+
+<div class="navbar">
+    <div class="logo">
+        <a href="{% url 'dashboard' %}" style="color: white; text-decoration: none; font-size: 20px;">
+            💳 MyBank
+        </a>
+    </div>
+    <div class="nav-links">
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'notifications' %}">Notifications</a>
+        <a href="{% url 'settings' %}">Settings</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+{% block content %}{% endblock %}
+
+</body>
+</html>
